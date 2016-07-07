@@ -26,11 +26,14 @@ class PricebookTemplateItemsViewController: BaseViewController
         super.viewDidLoad()
         if let item = self.pricebookTemplateItem {
             self.title = (item.idnumber ?? "") + " - " + (item.tname ?? "")
+        }else if let item2 = self.developmentTemplateItem {
+            self.title = (item2.idproject ?? "") + " - " + (item2.name ?? "")
         }
-        self.getPriceBookTemplateItemListFromServer()
+        self.getDataFromSever()
     }
     
     var pricebookTemplateItem : PricebookTemplateItem?
+    var developmentTemplateItem : SepcDevelopmentItem?
     
     var refreshControl: UIRefreshControl?
     
@@ -45,7 +48,7 @@ class PricebookTemplateItemsViewController: BaseViewController
     }
     func refresh(refreshControl: UIRefreshControl) {
         // Do your job, when done:
-        self.getPriceBookTemplateItemListFromServer()
+        self.getDataFromSever()
     }
     
     var templateItemList : [PricebookTemplateItemListI]?{
@@ -56,6 +59,63 @@ class PricebookTemplateItemsViewController: BaseViewController
     var templateItemListOrigin : [PricebookTemplateItemListI]? {
         didSet{
             self.textFieldDidChange(nil)
+        }
+    }
+    
+    private func getDataFromSever(){
+        if let _ = self.pricebookTemplateItem {
+            getPriceBookTemplateItemListFromServer()
+        }else if let _ = self.developmentTemplateItem {
+            getSpecDevelopmentTemplateItemListFromServer()
+        }
+    }
+    
+    private func getSpecDevelopmentTemplateItemListFromServer(){
+        let userInfo = NSUserDefaults.standardUserDefaults()
+        if let email = userInfo.objectForKey(CConstants.UserInfoEmail) as? String,
+            let pwd = userInfo.objectForKey(CConstants.UserInfoPwd) as? String,
+            let username = userInfo.objectForKey(CConstants.UserInfoUserName) as? String,
+            let item = self.developmentTemplateItem{
+            
+            
+            let a = ["email": email, "pwd" : pwd, "username": username,"idmastercompany":"1","iddevelopmenttemplate1":item.idnumber ?? "","developmentname":item.name ?? ""]
+            
+//            print(a)
+            
+            var hud : MBProgressHUD?
+            if !(self.refreshControl!.refreshing){
+                hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                hud?.labelText = CConstants.RequestMsg
+            }
+            
+            
+            Alamofire.request(.POST, CConstants.ServerURL + "baselection_SpecFeatureDevelopmentItemList.json", parameters: a).responseJSON{ (response) -> Void in
+                //                    self.clearNotice()
+                hud?.hide(true)
+                self.refreshControl?.endRefreshing()
+                //                    self.progressBar?.dismissViewControllerAnimated(true){ () -> Void in
+                //                        self.spinner?.stopAnimating()
+                if response.result.isSuccess {
+                    //                        print(response.result.value)
+                    if let rtnValue = response.result.value as? [[String: AnyObject]]{
+                        print(rtnValue)
+                        var tmp = [PricebookTemplateItemListI]()
+//                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
+                            for o in rtnValue {
+                                tmp.append(PricebookTemplateItemListI(dicInfo: o))
+                            }
+//                        }
+                        
+                        self.templateItemListOrigin = tmp
+                    }else{
+                        
+                        self.PopServerError()
+                    }
+                }else{
+                    
+                    self.PopNetworkError()
+                }
+            }
         }
     }
     
@@ -89,11 +149,11 @@ class PricebookTemplateItemsViewController: BaseViewController
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
                         print(rtnValue)
                         var tmp = [PricebookTemplateItemListI]()
-//                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
-                            for o in rtnValue {
-                                tmp.append(PricebookTemplateItemListI(dicInfo: o))
-                            }
-//                        }
+                        //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
+                        for o in rtnValue {
+                            tmp.append(PricebookTemplateItemListI(dicInfo: o))
+                        }
+                        //                        }
                         
                         self.templateItemListOrigin = tmp
                     }else{
@@ -107,6 +167,7 @@ class PricebookTemplateItemsViewController: BaseViewController
             }
         }
     }
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
@@ -186,10 +247,18 @@ class PricebookTemplateItemsViewController: BaseViewController
             switch identifier {
             case constants.segueToViewCatalog:
                 if let vc = segue.destinationViewController as? ViewCatalog {
-                    vc.idpricebooktemplate = self.pricebookTemplateItem?.idnumber
-                    vc.pricebookTemplateItemList = self.templateItemListOrigin?.filter(){
-                        return $0.fs == 1
+                    if let _ = self.pricebookTemplateItem {
+                        vc.idpricebooktemplate = self.pricebookTemplateItem?.idnumber
+                        vc.pricebookTemplateItemList = self.templateItemListOrigin?.filter(){
+                            return $0.fs == 1
+                        }
+                    }else if let _ = self.developmentTemplateItem {
+                        vc.iddevelopmenttemplate = self.developmentTemplateItem?.idnumber
+                        vc.pricebookTemplateItemList = self.templateItemListOrigin?.filter(){
+                            return $0.fs == 1
+                        }
                     }
+                    
                 }
             default:
                 break

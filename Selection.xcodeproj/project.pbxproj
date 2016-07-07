@@ -10,6 +10,13 @@
 		113907B91D2B8CB9001AD231 /* PricebookItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113907B81D2B8CB9001AD231 /* PricebookItemTableViewCell.swift */; };
 		113907BB1D2B8D45001AD231 /* PricebookTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113907BA1D2B8D45001AD231 /* PricebookTemplateViewController.swift */; };
 		113907BD1D2B90C5001AD231 /* PricebookTemplateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113907BC1D2B90C5001AD231 /* PricebookTemplateItem.swift */; };
+		1145E5241D2E2E8A001ADEB6 /* SpecFeatureCiaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E5231D2E2E8A001ADEB6 /* SpecFeatureCiaListViewController.swift */; };
+		1145E5261D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E5251D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift */; };
+		1145E5281D2E35B1001ADEB6 /* SepcDevelopmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E5271D2E35B1001ADEB6 /* SepcDevelopmentItem.swift */; };
+		1145E52A1D2E37C8001ADEB6 /* SpecDevelopmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E5291D2E37C8001ADEB6 /* SpecDevelopmentCell.swift */; };
+		1145E52C1D2E4F66001ADEB6 /* cityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E52B1D2E4F66001ADEB6 /* cityCell.swift */; };
+		1145E52E1D2E4FFA001ADEB6 /* cityItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E52D1D2E4FFA001ADEB6 /* cityItem.swift */; };
+		1145E5301D2E508D001ADEB6 /* citylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1145E52F1D2E508D001ADEB6 /* citylistViewController.swift */; };
 		1169A8611D2DE744004B8427 /* myUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169A8601D2DE744004B8427 /* myUILabel.m */; };
 		11802FEA1D2CA8A000AE0884 /* PricebookTemplateItemListI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11802FE91D2CA8A000AE0884 /* PricebookTemplateItemListI.swift */; };
 		11802FEC1D2CD08700AE0884 /* PricebookTemplateItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11802FEB1D2CD08700AE0884 /* PricebookTemplateItemCell.swift */; };
@@ -63,6 +70,13 @@
 		113907B81D2B8CB9001AD231 /* PricebookItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricebookItemTableViewCell.swift; sourceTree = "<group>"; };
 		113907BA1D2B8D45001AD231 /* PricebookTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricebookTemplateViewController.swift; sourceTree = "<group>"; };
 		113907BC1D2B90C5001AD231 /* PricebookTemplateItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricebookTemplateItem.swift; sourceTree = "<group>"; };
+		1145E5231D2E2E8A001ADEB6 /* SpecFeatureCiaListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecFeatureCiaListViewController.swift; sourceTree = "<group>"; };
+		1145E5251D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecFeatureDevelopmentListViewController.swift; sourceTree = "<group>"; };
+		1145E5271D2E35B1001ADEB6 /* SepcDevelopmentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SepcDevelopmentItem.swift; sourceTree = "<group>"; };
+		1145E5291D2E37C8001ADEB6 /* SpecDevelopmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecDevelopmentCell.swift; sourceTree = "<group>"; };
+		1145E52B1D2E4F66001ADEB6 /* cityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cityCell.swift; sourceTree = "<group>"; };
+		1145E52D1D2E4FFA001ADEB6 /* cityItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cityItem.swift; sourceTree = "<group>"; };
+		1145E52F1D2E508D001ADEB6 /* citylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = citylistViewController.swift; sourceTree = "<group>"; };
 		1169A85F1D2DE719004B8427 /* myUILabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = myUILabel.h; sourceTree = "<group>"; };
 		1169A8601D2DE744004B8427 /* myUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myUILabel.m; sourceTree = "<group>"; };
 		11802FE91D2CA8A000AE0884 /* PricebookTemplateItemListI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricebookTemplateItemListI.swift; sourceTree = "<group>"; };
@@ -136,6 +150,9 @@
 				1193F8E11D2B5E49000DB954 /* SelectMenuViewController.swift */,
 				113907BA1D2B8D45001AD231 /* PricebookTemplateViewController.swift */,
 				11D39D1A1D2BAC99006F14A5 /* PricebookTemplateItemsViewController.swift */,
+				1145E5231D2E2E8A001ADEB6 /* SpecFeatureCiaListViewController.swift */,
+				1145E5251D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift */,
+				1145E52F1D2E508D001ADEB6 /* citylistViewController.swift */,
 			);
 			path = ViewsNew;
 			sourceTree = "<group>";
@@ -211,6 +228,8 @@
 				11802FEB1D2CD08700AE0884 /* PricebookTemplateItemCell.swift */,
 				1169A85F1D2DE719004B8427 /* myUILabel.h */,
 				1169A8601D2DE744004B8427 /* myUILabel.m */,
+				1145E5291D2E37C8001ADEB6 /* SpecDevelopmentCell.swift */,
+				1145E52B1D2E4F66001ADEB6 /* cityCell.swift */,
 			);
 			path = CustomControl;
 			sourceTree = "<group>";
@@ -233,6 +252,8 @@
 				11E3188B1D08FC7A00EF498B /* SegueHandlerType.swift */,
 				113907BC1D2B90C5001AD231 /* PricebookTemplateItem.swift */,
 				11802FE91D2CA8A000AE0884 /* PricebookTemplateItemListI.swift */,
+				1145E5271D2E35B1001ADEB6 /* SepcDevelopmentItem.swift */,
+				1145E52D1D2E4FFA001ADEB6 /* cityItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -385,6 +406,8 @@
 				11E3189D1D08FC7A00EF498B /* CialistItemObj.swift in Sources */,
 				11E318961D08FC7A00EF498B /* AssemblyRequired.swift in Sources */,
 				1169A8611D2DE744004B8427 /* myUILabel.m in Sources */,
+				1145E5281D2E35B1001ADEB6 /* SepcDevelopmentItem.swift in Sources */,
+				1145E5241D2E2E8A001ADEB6 /* SpecFeatureCiaListViewController.swift in Sources */,
 				11E318951D08FC7A00EF498B /* AssemblyItem.swift in Sources */,
 				113907B91D2B8CB9001AD231 /* PricebookItemTableViewCell.swift in Sources */,
 				11E3185E1D08FC4E00EF498B /* AppDelegate.swift in Sources */,
@@ -393,6 +416,10 @@
 				11E318601D08FC4E00EF498B /* BaseViewController.swift in Sources */,
 				11E3189E1D08FC7A00EF498B /* LoginedUserObj.swift in Sources */,
 				11E318921D08FC7A00EF498B /* selectionImageCell.swift in Sources */,
+				1145E5261D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift in Sources */,
+				1145E5301D2E508D001ADEB6 /* citylistViewController.swift in Sources */,
+				1145E52A1D2E37C8001ADEB6 /* SpecDevelopmentCell.swift in Sources */,
+				1145E52E1D2E4FFA001ADEB6 /* cityItem.swift in Sources */,
 				11E318931D08FC7A00EF498B /* SeletionCell.swift in Sources */,
 				11E318A21D08FC7A00EF498B /* SegueHandlerType.swift in Sources */,
 				11E3189A1D08FC7A00EF498B /* AssemblySelectionRequired.swift in Sources */,
@@ -415,6 +442,7 @@
 				11E318701D08FC6D00EF498B /* ViewCatalog.swift in Sources */,
 				11802FEC1D2CD08700AE0884 /* PricebookTemplateItemCell.swift in Sources */,
 				11E318971D08FC7A00EF498B /* AssemblySelectionAreaObj.swift in Sources */,
+				1145E52C1D2E4F66001ADEB6 /* cityCell.swift in Sources */,
 				11E3188F1D08FC7A00EF498B /* MySearchBar.swift in Sources */,
 				11E318911D08FC7A00EF498B /* SelectionAreaCell.swift in Sources */,
 				11E318A01D08FC7A00EF498B /* ProjectListRequired.swift in Sources */,

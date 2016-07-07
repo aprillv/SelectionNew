@@ -359,9 +359,15 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
     
     func goToNextPage(menuname: String) {
         switch menuname {
+        case CConstants.menu162:
+            
+            self.performSegueWithIdentifier("showFindacity", sender: nil)
         case CConstants.menu164:
             
             self.performSegueWithIdentifier("showPriceBookTmplate", sender: nil)
+        case CConstants.menu165:
+            
+            self.performSegueWithIdentifier("showSpecFeatureCiaList", sender: nil)
         default:
             break
         }

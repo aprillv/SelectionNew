@@ -96,7 +96,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
             upc.text = item.part!
             name.text = item.xdescription!
             
-            let url =  "https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(idpricebooktemplate!)&upc=\(item.part!)&isthumbnail=1"
+            let url =  getImageUrl(item.part!)
 //            if let strkey = SDImageCache.cachePathForKey(<#T##SDImageCache#>)
             if SDImageCache.sharedImageCache().diskImageExistsWithKey(url) {
             image.image = SDImageCache.sharedImageCache().imageFromDiskCacheForKey(url)
@@ -135,6 +135,15 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
             printController.presentAnimated(true, completionHandler: nil)
             printController.delegate = self
         }
+    }
+    
+    private func getImageUrl(ids : String) -> String{
+        if let _ = idpricebooktemplate {
+            return "https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(idpricebooktemplate!)&upc=\(ids)&isthumbnail=1"
+        }else{
+            return "https://contractssl.buildersaccess.com/baselection_specFeatureDevelopmentItemImage?idcia=1&iddevelopmenttemplate1=\(iddevelopmenttemplate!)&upc=\(ids)&isthumbnail=1"
+        }
+        
     }
     func printInteractionControllerParentViewController(printInteractionController: UIPrintInteractionController) -> UIViewController {
         return self.navigationController!
@@ -175,6 +184,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
     }
     
     var idpricebooktemplate : String?
+    var iddevelopmenttemplate : String?
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(constants.cellIdentifier, forIndexPath: indexPath)
         if let cell1 = cell as? selectionImageCell {
@@ -184,7 +194,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
 //            cell1.name.sizeToFit()
             print(cell1.name.numberOfLines)
             cell1.spinner.startAnimating()
-            let urlstr = "https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(idpricebooktemplate!)&upc=\(item.part!)&isthumbnail=1"
+            let urlstr =  getImageUrl(item.part!)
             cell1.pic.sd_setImageWithURL(NSURL(string: urlstr), completed: { (_, _, _, _) -> Void in
                 SDImageCache.sharedImageCache().storeImage(cell1.pic.image, forKey: urlstr)
                 
