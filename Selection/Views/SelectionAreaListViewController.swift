@@ -65,6 +65,12 @@ class SelectionAreaListViewController: BaseViewController, UITableViewDataSource
     
     var selectionListOrigin: [AssemblySelectionAreaObj]? {
         didSet{
+            if self.selectionListOrigin == nil || (self.selectionListOrigin!.filter(){
+                return $0.fs == "True"
+            }).count == 0 {
+                self.navigationItem.rightBarButtonItems = nil
+            }
+            
             if txtField.text == "" {
                 selectionList = selectionListOrigin
             }else{
@@ -118,11 +124,13 @@ class SelectionAreaListViewController: BaseViewController, UITableViewDataSource
         let userInfo = NSUserDefaults.standardUserDefaults()
         if let email = userInfo.objectForKey(CConstants.UserInfoEmail) as? String,
             let pwd = userInfo.objectForKey(CConstants.UserInfoPwd) as? String,
-            let ciaidValue = ciaid, idassemblyValue = idassembly{
+            let ciaidValue = ciaid, idassemblyValue = idassembly,
+            let username = userInfo.stringForKey(CConstants.LoggedUserNameKey){
                 let assemblyRequired = AssemblySelectionAreaRequired(email: email, password: pwd, ciaid: ciaidValue, idassembly: idassemblyValue)
                 
-                let a = assemblyRequired.toDictionary()
-                
+                var a = assemblyRequired.toDictionary()
+                a["username"] = username
+            a["assemblyname"] = self.title ?? " "
                 var hud : MBProgressHUD?
                 if !(self.refreshControl!.refreshing){
                     hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)

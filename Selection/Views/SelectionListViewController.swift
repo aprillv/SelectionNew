@@ -142,11 +142,13 @@ class SelectionListViewController: BaseViewController, UITableViewDataSource, UI
         let userInfo = NSUserDefaults.standardUserDefaults()
         if let email = userInfo.objectForKey(CConstants.UserInfoEmail) as? String,
             let pwd = userInfo.objectForKey(CConstants.UserInfoPwd) as? String,
-            let ciaidValue = ciaid, idassemblyValue = idassembly{
+            let ciaidValue = ciaid, idassemblyValue = idassembly, let usernm = userInfo.stringForKey(CConstants.LoggedUserNameKey){
                 let assemblyRequired = AssemblySelectionRequired(email: email, password: pwd, ciaid: ciaidValue, idassembly: idassemblyValue)
                 
-                let a = assemblyRequired.toDictionary()
-                
+                var a = assemblyRequired.toDictionary()
+                a["username"] = usernm
+                a["assemblyname"] = self.title ?? " "
+            
                 var hud : MBProgressHUD?
                 if !(self.refreshControl!.refreshing){
                     hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)

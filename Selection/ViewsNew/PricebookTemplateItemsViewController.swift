@@ -33,7 +33,16 @@ class PricebookTemplateItemsViewController: BaseViewController
     }
     
     var pricebookTemplateItem : PricebookTemplateItem?
-    var developmentTemplateItem : SepcDevelopmentItem?
+    var developmentTemplateItem : SepcDevelopmentItem?{
+        didSet{
+            self.title = "\(developmentTemplateItem?.idnumber ?? " ") - \(developmentTemplateItem?.name ?? " ")"
+        }
+    }
+    var floorplanTemplateItem : FloorplanItem? {
+        didSet{
+            self.title = "\(floorplanTemplateItem?.idnumber ?? " ") - \(floorplanTemplateItem?.floorplanname ?? " ")"
+        }
+    }
     
     var refreshControl: UIRefreshControl?
     
@@ -58,6 +67,12 @@ class PricebookTemplateItemsViewController: BaseViewController
     }
     var templateItemListOrigin : [PricebookTemplateItemListI]? {
         didSet{
+            if self.templateItemListOrigin == nil || (self.templateItemListOrigin!.filter(){
+                return $0.fs == 1
+                }).count == 0 {
+                self.navigationItem.rightBarButtonItems = nil
+            }
+            
             self.textFieldDidChange(nil)
         }
     }
@@ -67,6 +82,56 @@ class PricebookTemplateItemsViewController: BaseViewController
             getPriceBookTemplateItemListFromServer()
         }else if let _ = self.developmentTemplateItem {
             getSpecDevelopmentTemplateItemListFromServer()
+        }else if let _ = self.floorplanTemplateItem {
+            getSpecFloorplanTemplateItemListFromServer()
+        }
+    }
+    private func getSpecFloorplanTemplateItemListFromServer(){
+        let userInfo = NSUserDefaults.standardUserDefaults()
+        if let email = userInfo.objectForKey(CConstants.UserInfoEmail) as? String,
+            let pwd = userInfo.objectForKey(CConstants.UserInfoPwd) as? String,
+            let username = userInfo.objectForKey(CConstants.UserInfoUserName) as? String,
+            let item = self.floorplanTemplateItem{
+            
+            
+            let a = ["email":email, "pwd":pwd, "username": username,"idcia": (item.ciaid ?? " "),"idfloorplan":(item.idnumber ?? " "),"floorplanname":(item.floorplanname ?? " ")]
+            
+            //            print(a)
+            
+            var hud : MBProgressHUD?
+            if !(self.refreshControl!.refreshing){
+                hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                hud?.labelText = CConstants.RequestMsg
+            }
+            
+            
+            Alamofire.request(.POST, CConstants.ServerURL + "baselection_masterfloorplanarealist.json", parameters: a).responseJSON{ (response) -> Void in
+                //                    self.clearNotice()
+                hud?.hide(true)
+                self.refreshControl?.endRefreshing()
+                //                    self.progressBar?.dismissViewControllerAnimated(true){ () -> Void in
+                //                        self.spinner?.stopAnimating()
+                if response.result.isSuccess {
+                    //                        print(response.result.value)
+                    if let rtnValue = response.result.value as? [[String: AnyObject]]{
+                        print(rtnValue)
+                        var tmp = [PricebookTemplateItemListI]()
+                        //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
+                        for o in rtnValue {
+                            tmp.append(PricebookTemplateItemListI(dicInfo: o))
+                        }
+                        //                        }
+                        
+                        self.templateItemListOrigin = tmp
+                    }else{
+                        
+                        self.PopServerError()
+                    }
+                }else{
+                    
+                    self.PopNetworkError()
+                }
+            }
         }
     }
     
@@ -254,6 +319,11 @@ class PricebookTemplateItemsViewController: BaseViewController
                         }
                     }else if let _ = self.developmentTemplateItem {
                         vc.iddevelopmenttemplate = self.developmentTemplateItem?.idnumber
+                        vc.pricebookTemplateItemList = self.templateItemListOrigin?.filter(){
+                            return $0.fs == 1
+                        }
+                    }else if let _ = self.floorplanTemplateItem {
+                        vc.idfloorplantemplate = self.floorplanTemplateItem?.idnumber
                         vc.pricebookTemplateItemList = self.templateItemListOrigin?.filter(){
                             return $0.fs == 1
                         }

@@ -325,9 +325,19 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
                         ciaListView.CiaListOrigin = loginResult?.cialist
                     }
                 break
+        case "showSpecFeatureCiaList":
+            if let ciaListView = segue.destinationViewController as? SpecFeatureCiaListViewController{
+                ciaListView.menunumber = sender as? String
+            }
+            break
         case "showMenu2":
             if let ciew = segue.destinationViewController as? SelectMenuViewController{
                 ciew.delegate = self
+            }
+            break
+        case "ShowAssemblies":
+            if let ciew = segue.destinationViewController as? AssembliesViewController{
+                ciew.ciaid = "1"
             }
             break
         default:
@@ -361,13 +371,16 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
         switch menuname {
         case CConstants.menu162:
             
-            self.performSegueWithIdentifier("showFindacity", sender: nil)
+            self.performSegueWithIdentifier("ShowAssemblies", sender: nil)
         case CConstants.menu164:
             
             self.performSegueWithIdentifier("showPriceBookTmplate", sender: nil)
         case CConstants.menu165:
             
-            self.performSegueWithIdentifier("showSpecFeatureCiaList", sender: nil)
+            self.performSegueWithIdentifier("showSpecFeatureCiaList", sender: menuname)
+        case CConstants.menu102:
+            
+            self.performSegueWithIdentifier("showSpecFeatureCiaList", sender: menuname)
         default:
             break
         }

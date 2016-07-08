@@ -10,7 +10,7 @@ import Alamofire
 import MBProgressHUD
 
 class SpecFeatureCiaListViewController: BaseViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+    var menunumber : String?
     @IBOutlet var viewheight: NSLayoutConstraint!{
         didSet{
             viewheight.constant = 1.0 / UIScreen.mainScreen().scale
@@ -139,6 +139,7 @@ class SpecFeatureCiaListViewController: BaseViewController, UITextFieldDelegate,
     // MARK: - Constanse
     private struct constants{
         static let segueToDevelopment = "showDevelopmentList"
+        static let segueToFloorplan = "showplanlist"
         
         static let Title : String = "Select A Company"
         static let CellIdentifier : String = "Cia Cell Identifier"
@@ -183,7 +184,13 @@ class SpecFeatureCiaListViewController: BaseViewController, UITextFieldDelegate,
         
         
         //        self.performSegueWithIdentifier(CConstants.SegueToAssemblies, sender: self.CiaList![indexPath.row])
-        self.performSegueWithIdentifier(constants.segueToDevelopment, sender: self.CiaList![indexPath.row])
+        switch menunumber ?? "" {
+        case CConstants.menu102:
+            self.performSegueWithIdentifier(constants.segueToFloorplan, sender: self.CiaList![indexPath.row])
+        default:
+            self.performSegueWithIdentifier(constants.segueToDevelopment, sender: self.CiaList![indexPath.row])
+        }
+        
         
     }
     
@@ -195,6 +202,12 @@ class SpecFeatureCiaListViewController: BaseViewController, UITextFieldDelegate,
                 if let a = segue.destinationViewController as? SpecFeatureDevelopmentListViewController {
                     if let item = sender as? CialistItemObj {
                         a.idcia = item.ciaid
+                    }
+                }
+            case constants.segueToFloorplan:
+                if let a = segue.destinationViewController as? FloorplanListViewController {
+                    if let item = sender as? CialistItemObj {
+                        a.ciaitem = item
                     }
                 }
             case CConstants.SegueToAssemblies:

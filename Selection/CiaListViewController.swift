@@ -12,6 +12,8 @@ import MBProgressHUD
 
 class CiaListViewController: UITableViewController, UITextFieldDelegate {
     
+    
+    
     @IBOutlet var viewheight: NSLayoutConstraint!{
         didSet{
             viewheight.constant = 1.0 / UIScreen.mainScreen().scale

@@ -141,18 +141,19 @@ class AssembliesViewController: BaseViewController, UITableViewDataSource, UITab
         let userInfo = NSUserDefaults.standardUserDefaults()
         if let email = userInfo.objectForKey(CConstants.UserInfoEmail) as? String,
             let pwd = userInfo.objectForKey(CConstants.UserInfoPwd) as? String,
-            let ciaidValue = ciaid{
+            let ciaidValue = ciaid, let usernm = userInfo.stringForKey(CConstants.LoggedUserNameKey){
                 let assemblyRequired = AssemblyRequired(email: email, password: pwd, ciaid: ciaidValue)
                 
-                let a = assemblyRequired.toDictionary()
-                
+                var a = assemblyRequired.toDictionary()
+                a["username"] = usernm
+            
                 var hud : MBProgressHUD?
                 if !(self.refreshControl!.refreshing){
                     hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                     hud?.labelText = CConstants.RequestMsg
                 }
                 
-                
+//                print(a)
                 Alamofire.request(.POST, CConstants.ServerURL + CConstants.AssemblyListServiceURL, parameters: a).responseJSON{ (response) -> Void in
                     //                    self.clearNotice()
                     hud?.hide(true)
@@ -160,7 +161,7 @@ class AssembliesViewController: BaseViewController, UITableViewDataSource, UITab
                     //                    self.progressBar?.dismissViewControllerAnimated(true){ () -> Void in
                     //                        self.spinner?.stopAnimating()
                     if response.result.isSuccess {
-//                        print(response.result.value)
+                        print(response.result.value)
                         if let rtnValue = response.result.value as? [[String: String]]{
                             var tmp = [AssemblyItem]()
                             for o in rtnValue {

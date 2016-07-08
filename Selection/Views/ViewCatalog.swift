@@ -10,8 +10,13 @@ import UIKit
 import SDWebImage
 
 class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIPrintInteractionControllerDelegate {
-
+var xfrom = 1
+    
     @IBAction func DoPrint(sender: AnyObject) {
+         let count = (xfrom == 1 ? self.selectionList!.count : self.pricebookTemplateItemList!.count)
+        if count == 0 {
+            return;
+        }
 //        UIView* testView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f)];
 //        NSMutableData* pdfData = [NSMutableData data];
 //        UIGraphicsBeginPDFContextToData(pdfData, CGRectMake(0.0f, 0.0f, 792.0f, 612.0f), nil);
@@ -20,6 +25,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
 //        CGContextScaleCTM(pdfContext, 0.773f, 0.773f);
 //        [testView.layer renderInContext:pdfContext];
 //        UIGraphicsEndPDFContext();
+        // 1: from assembily 2 from pricebook template
         
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, CGRectMake(0.0, 0.0, 612.0, 792.0), nil)
@@ -64,7 +70,8 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
 //        }
         var printView :UIView?
         var pdfContext : CGContext?
-        for i in 0...self.pricebookTemplateItemList!.count-1 {
+       
+        for i in 0...count-1 {
             if i % 12 == 0 {
                 UIGraphicsBeginPDFPage()
                 pdfContext = UIGraphicsGetCurrentContext()
@@ -83,8 +90,26 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
                 printView!.addSubview(upc1)
             }
             
+            var strupc : String?
+            var xdescription : String?
+            var url: String
             
-            let item = self.pricebookTemplateItemList![i]
+            switch xfrom {
+            case 1:
+                let item = self.selectionList![i]
+                strupc = item.upc!
+                xdescription = item.selectionarea!
+                url =  "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"
+                
+            default:
+                let item = self.pricebookTemplateItemList![i]
+                strupc = item.part!
+                xdescription = item.xdescription!
+                url =  getImageUrl(item.part!)
+                
+                
+            }
+            
             let view = UIView(frame: CGRectMake(CGFloat((i%3)*255)+4, CGFloat(((i%12)/3)*250) + 60, CGFloat(254), CGFloat(240)))
             view.layer.borderColor = CConstants.BorderColor.CGColor
             view.layer.borderWidth = 1.0
@@ -93,24 +118,23 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
             name.numberOfLines = 2
             name.verticalAlignment = VerticalAlignmentTop
             let image = UIImageView(frame: CGRect(x: 8, y: 42, width: 238, height: 196))
-            upc.text = item.part!
-            name.text = item.xdescription!
+            upc.text = strupc
+            name.text = xdescription
             
-            let url =  getImageUrl(item.part!)
-//            if let strkey = SDImageCache.cachePathForKey(<#T##SDImageCache#>)
             if SDImageCache.sharedImageCache().diskImageExistsWithKey(url) {
-            image.image = SDImageCache.sharedImageCache().imageFromDiskCacheForKey(url)
+                image.image = SDImageCache.sharedImageCache().imageFromDiskCacheForKey(url)
             }else{
                 image.image = UIImage(data: NSData(contentsOfURL: NSURL(string: url)!)!)
-                 SDImageCache.sharedImageCache().storeImage(image.image, forKey: url)
+                SDImageCache.sharedImageCache().storeImage(image.image, forKey: url)
             }
             
             view.addSubview(upc)
             view.addSubview(name)
             view.addSubview(image)
+            
             print(view.frame)
             printView!.addSubview(view)
-            if (i + 1) % 12 == 0 || i == self.pricebookTemplateItemList!.count-1{
+            if (i + 1) % 12 == 0 || i == count-1{
                printView!.layer.renderInContext(pdfContext!)
             }
             //
@@ -140,8 +164,11 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
     private func getImageUrl(ids : String) -> String{
         if let _ = idpricebooktemplate {
             return "https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(idpricebooktemplate!)&upc=\(ids)&isthumbnail=1"
-        }else{
+        }else if let _ = iddevelopmenttemplate {
             return "https://contractssl.buildersaccess.com/baselection_specFeatureDevelopmentItemImage?idcia=1&iddevelopmenttemplate1=\(iddevelopmenttemplate!)&upc=\(ids)&isthumbnail=1"
+        }else {
+             return "https://contractssl.buildersaccess.com/baselection_floorplanItemImage?idcia=1&idfloorplan=\(idfloorplantemplate!)&upc=\(ids)&isthumbnail=1"
+        
         }
         
     }
@@ -165,6 +192,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
     
     var selectionList: [AssemblySelectionAreaObj]?{
         didSet{
+            self.xfrom = 1
             if collectionListView != nil {
                 collectionListView.reloadData()
             }
@@ -173,6 +201,7 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
     
     var pricebookTemplateItemList: [PricebookTemplateItemListI]?{
         didSet{
+            self.xfrom = 2
             if collectionListView != nil {
                 collectionListView.reloadData()
             }
@@ -184,39 +213,54 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
     }
     
     var idpricebooktemplate : String?
+
     var iddevelopmenttemplate : String?
+    var idfloorplantemplate : String?
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(constants.cellIdentifier, forIndexPath: indexPath)
         if let cell1 = cell as? selectionImageCell {
-            let item = pricebookTemplateItemList![indexPath.row]
-            cell1.upc.text = item.part!
-            cell1.name.text = item.xdescription!
-//            cell1.name.sizeToFit()
-            print(cell1.name.numberOfLines)
-            cell1.spinner.startAnimating()
-            let urlstr =  getImageUrl(item.part!)
-            cell1.pic.sd_setImageWithURL(NSURL(string: urlstr), completed: { (_, _, _, _) -> Void in
-                SDImageCache.sharedImageCache().storeImage(cell1.pic.image, forKey: urlstr)
-                
-                cell1.spinner.stopAnimating()
-            })
+            switch  xfrom {
+            case 1:
+                let item = selectionList![indexPath.row]
+                cell1.upc.text = item.upc!
+                cell1.name.text = item.selectionarea!
+                //            cell1.pic.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"))
+                cell1.spinner.startAnimating()
+                let urlstr = "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"
+                cell1.pic.sd_setImageWithURL(NSURL(string: urlstr), completed: { (_, _, _, _) -> Void in
+                    cell1.spinner.stopAnimating()
+                     SDImageCache.sharedImageCache().storeImage(cell1.pic.image, forKey: urlstr)
+                })
+            default:
+                let item = pricebookTemplateItemList![indexPath.row]
+                cell1.upc.text = item.part!
+                cell1.name.text = item.xdescription!
+                //            cell1.name.sizeToFit()
+                print(cell1.name.numberOfLines)
+                cell1.spinner.startAnimating()
+                let urlstr =  getImageUrl(item.part!)
+                cell1.pic.sd_setImageWithURL(NSURL(string: urlstr), completed: { (_, _, _, _) -> Void in
+                    SDImageCache.sharedImageCache().storeImage(cell1.pic.image, forKey: urlstr)
+                    
+                    cell1.spinner.stopAnimating()
+                })
+            }
+           
 //            print("https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(idpricebooktemplate!)&upc=\(item.part!)&isthumbnail=1")
             
-//            let item = selectionList![indexPath.row]
-//            cell1.upc.text = item.upc!
-//            cell1.name.text = item.selectionarea!
-////            cell1.pic.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"))
-//           cell1.spinner.startAnimating()
-//            cell1.pic.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"), completed: { (_, _, _, _) -> Void in
-//                cell1.spinner.stopAnimating()
-//            })
+            
         }
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return selectionList?.count ?? 0
-        return pricebookTemplateItemList?.count ?? 0
+//
+        if xfrom == 1 {
+            return selectionList?.count ?? 0
+        }else{
+            return pricebookTemplateItemList?.count ?? 0
+        }
+        
     }
     
     override func viewDidLoad() {
@@ -224,8 +268,13 @@ class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionV
         let userInfo = NSUserDefaults.standardUserDefaults()
         if let _ = userInfo.valueForKey(CConstants.UserInfoCiaId),
             let cianame = userInfo.valueForKey(CConstants.UserInfoCiaName)  {
-        self.title = "\(1 ) - \(cianame )"
+            switch xfrom {
+            case 1:
 //                self.title = "\(xtitle )"
+                break
+            default:
+                self.title = "\(1 ) - \(cianame )"
+            }
         }
         
     }
