@@ -177,7 +177,7 @@ class projectListViewController: BaseViewController, UITableViewDelegate, UITabl
             case CConstants.SegueToFloorplanFromProjectList:
                 if let a = segue.destinationViewController as? FloorPlanViewController {
                     if let item = sender as? ProjectItemObj {
-                        a.projectInfo = item
+//                        a.fl = item
                     }
                 }
             default:

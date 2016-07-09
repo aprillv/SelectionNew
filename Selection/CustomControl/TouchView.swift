@@ -117,7 +117,7 @@ class TouchView: UIView {
             NSForegroundColorAttributeName: UIColor.blueColor()
         ]
        
-        (CategoryDetail?.idcategory ?? "").drawAtPoint(CGPoint(x: 4, y: 4), withAttributes: textFontAttributes)
+        (CategoryDetail?.code ?? "").drawAtPoint(CGPoint(x: 4, y: 4), withAttributes: textFontAttributes)
           (CategoryDetail?.ncategory ?? "").drawAtPoint(CGPoint(x: 4, y: 18), withAttributes: textFontAttributes)
         
     }

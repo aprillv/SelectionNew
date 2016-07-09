@@ -10,14 +10,15 @@ import UIKit
 import Alamofire
 import MBProgressHUD
 
-class FloorplanListViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource
+class FloorplanListViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource, FloorplanMenuDelegate
 {
     
     private struct constants {
         static let contentCellIndentifier = "contentCell"
         static let headCellIndentifier = "headCell"
         static let segueToViewAreaList = "showfloorplanarea"
-        
+        static let segueToMenuList = "showMenu"
+        static let segueToFloorplanView = "showFloorplanView"
         
     }
     
@@ -134,9 +135,13 @@ class FloorplanListViewController: BaseViewController , UITableViewDelegate, UIT
         return cell
     }
     
+    var selectedItem : FloorplanItem?
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = self.floorplanList![indexPath.row]
-        self.performSegueWithIdentifier(constants.segueToViewAreaList, sender: item)
+        selectedItem = item
+        
+        self.performSegueWithIdentifier(constants.segueToMenuList, sender: item)
     }
     
     @IBOutlet var viewheight: NSLayoutConstraint!{
@@ -186,14 +191,34 @@ class FloorplanListViewController: BaseViewController , UITableViewDelegate, UIT
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
+            case constants.segueToMenuList:
+                if let vc = segue.destinationViewController as? FloorplanMenuViewController {
+                    vc.delegate = self
+                    if let a = selectedItem {
+                        vc.xtitle = "\(a.idnumber ?? "") - \(a.floorplanname ?? "")"
+                    }
+                }
             case constants.segueToViewAreaList:
                 if let vc = segue.destinationViewController as? PricebookTemplateItemsViewController {
-                    vc.floorplanTemplateItem = sender as? FloorplanItem
+                    vc.floorplanTemplateItem = selectedItem
                     
+                }
+            case constants.segueToFloorplanView:
+                if let vc = segue.destinationViewController as? FloorPlanViewController {
+                    vc.floorplanInfo = selectedItem
                 }
             default:
                 break
             }
+        }
+    }
+    
+    func GoToMenu(menu: String) {
+        switch menu {
+        case CConstants.menuFloorplanView:
+            self.performSegueWithIdentifier(constants.segueToFloorplanView, sender: nil)
+        default:
+            self.performSegueWithIdentifier(constants.segueToViewAreaList, sender: nil)
         }
     }
 }

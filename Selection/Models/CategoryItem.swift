@@ -17,4 +17,5 @@ class CategoryItem: BaseModelObject {
     var maxY : NSNumber?
     var minX : NSNumber?
     var minY : NSNumber?
+    var code : String?
 }

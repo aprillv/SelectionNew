@@ -9,6 +9,10 @@
 import UIKit
 
 struct CConstants{
+    
+    static let menuFloorplanView = "Floorplan View"
+    static let menuListView = "List View"
+    
     static let menu102 = "1.02 Master Floorplan"
     static let menu162 = "1.62 Package Price List"
     static let menu164 = "1.64 Pricebook Template"

@@ -12,45 +12,46 @@ import Alamofire
 
 class FloorPlanViewController:  BaseViewController{
     // MARK: paramater from last page
-    var projectInfo : ProjectItemObj?
+    var floorplanInfo : FloorplanItem?
+    
+//    var scale : Float = 1.0
+//    var rect = CGRectZero
     
     var CategoryList: [CategoryItem]? {
         didSet{
-            if let cl = CategoryList {
-                if let img = view.viewWithTag(1) as? UIImageView, item = projectInfo {
-                      img.contentMode = .ScaleAspectFit
-                    img.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_floorplanimage?idcia=\(item.ciaid!)&idfloorplan=\(item.idfloorplan!)&isthumbnail=0"), completed: { (_, _, _, _) -> Void in
-//                        self.spinner.stopAnimating()
-                        
-                        let (rect, scale) = self.getImageFrame(img)
-                        img.addObserver(self, forKeyPath: "center", options: NSKeyValueObservingOptions.New, context: nil)
+            addPolygon()
+        }
+    }
+    
+    func addPolygon() {
+        if let img = view.viewWithTag(1) as? UIImageView, item = floorplanInfo {
+            img.contentMode = .ScaleAspectFit
+            
+            img.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_floorplanimage?idcia=\(item.ciaid!)&idfloorplan=\(item.idnumber!)&isthumbnail=0"), completed: { (_, _, _, _) -> Void in
+                //                        self.spinner.stopAnimating()
+                self.spinner.stopAnimating()
+                self.loadingLbl.hidden = true
+                let (rect, scale) = self.getImageFrame(img)
+//                self.rect = rect1
+//                self.scale = scale1
+                img.addObserver(self, forKeyPath: "center", options: NSKeyValueObservingOptions.New, context: nil)
+                self.finished = true
+                if let cl = self.CategoryList {
+                    
                         for item in cl {
                             let t = TouchView(frame: CGRect(x: rect.origin.x + (CGFloat(item.minX ?? 0) * CGFloat(scale)), y: rect.origin.y  + CGFloat(item.minY ?? 0) * CGFloat(scale), width: CGFloat(Int(item.maxX!) - Int(item.minX!)) * CGFloat(scale), height: CGFloat(Int(item.maxY!) - Int(item.minY!)) * CGFloat(scale)), withItem: item, withScale: scale)
                             t.backgroundColor = UIColor.clearColor()
-                            //                            t.layer.borderColor = UIColor.greenColor().CGColor
-                            //                            t.layer.borderWidth = 2.0
-                            //        t.setTitleColor(UIColor.blackColor(), forState: UIControlState.Highlighted)
-                            //        t.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
                             img.addSubview(t)
                             t.addAction(target: self, action: #selector(FloorPlanViewController.ClickCategroy(_:)))
                             
                         }
-                        
-                    })
-                    
-                    
-                    
-                    
-                    
-//                        print(rect)
-                        
-                       
-                    
                     
                     
                 }
-            }
+            })
         }
+        
+        
     }
     
     func ClickCategroy(tap : UITapGestureRecognizer) {
@@ -88,9 +89,13 @@ class FloorPlanViewController:  BaseViewController{
     
     private func getCategory() {
         let userInfo = NSUserDefaults.standardUserDefaults()
-        let request = ["idcia": projectInfo?.ciaid ?? "", "idfloorplan" : projectInfo?.idfloorplan ?? "",
-                       "email": userInfo.stringForKey(CConstants.UserInfoEmail) ?? "", "password": userInfo.stringForKey(CConstants.UserInfoPwd) ?? ""]
-        print(request)
+        let request = ["idcia": floorplanInfo?.ciaid ?? "",
+                       "idfloorplan" : floorplanInfo?.idnumber ?? "",
+                       "email": userInfo.stringForKey(CConstants.UserInfoEmail) ?? "",
+                       "password": userInfo.stringForKey(CConstants.UserInfoPwd) ?? "",
+                       "username" : userInfo.stringForKey(CConstants.LoggedUserNameKey) ?? " ",
+                       "floorplanname": floorplanInfo?.floorplanname ?? " "]
+//        print(request)
         Alamofire.request(.POST,
             CConstants.ServerURL + "baselection_categoryRequest.json",
             parameters: request).responseJSON{ (response) -> Void in
@@ -128,10 +133,16 @@ class FloorPlanViewController:  BaseViewController{
        return (CGRectMake(CGFloat(roundf(Float(0.5)*(Float(img.bounds.width-scaledImageSize.width)))), CGFloat(roundf(Float(0.5)*(Float(img.bounds.height-scaledImageSize.height)))), CGFloat(roundf(Float(scaledImageSize.width))), CGFloat(roundf(Float(scaledImageSize.height)))), imageScale)
     }
     
+    var finished = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
-        title = "\(projectInfo?.nproject ?? "")"
+        title = "Floorplan # \(floorplanInfo?.idnumber ?? "") - \(floorplanInfo?.floorplanname ?? " ")"
+        spinner.startAnimating()
+        loadingLbl.hidden = false
+        
+        
+        
         getCategory()
         
        
@@ -139,9 +150,19 @@ class FloorPlanViewController:  BaseViewController{
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if let img = view.viewWithTag(1) as? UIImageView {
+        if let img = view.viewWithTag(1) as? UIImageView{
             img.removeObserver(self, forKeyPath: "center", context: nil)
             
+        }
+    }
+    @IBOutlet var spinner: UIActivityIndicatorView!{
+        didSet{
+            spinner.hidesWhenStopped = true
+        }
+    }
+    @IBOutlet var loadingLbl: UILabel!{
+        didSet{
+            loadingLbl.hidden = true
         }
     }
 

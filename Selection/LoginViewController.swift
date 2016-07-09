@@ -259,7 +259,14 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
                                     self.loginResult = rtn
 //                                     static let SegueToCiaList :  String = "CiaList"
 //                                    self.performSegueWithIdentifier("CiaList", sender: self)
-                                    self.performSegueWithIdentifier("showMenu2", sender: nil)
+                                    if self.menus?.componentsSeparatedByString(",").count == 0 {
+                                        self.PopMsgWithJustOK(msg: "You cannot access BA Selection now, please contact administrator to add menu access to BA Selection for you.")
+//                                        return false
+                                    }else{
+                                        self.performSegueWithIdentifier("showMenu2", sender: nil)
+                                    }
+                                    
+                                    
                                 }else{
                                     self.PopMsgValidationWithJustOK(msg: constants.WrongEmailOrPwdMsg, txtField: nil)
                                 }
@@ -320,6 +327,19 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
         }
     }
     var menus : String?
+    
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "showMenu2" {
+            print(menus?.componentsSeparatedByString(",").count)
+            if menus?.componentsSeparatedByString(",").count == 4 {
+                self.PopMsgWithJustOK(msg: "You cannot access BA Selection now, please contact administrator to add menu access to you.")
+                return false
+            }
+        }
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier ?? "" {
                 case "CiaList":

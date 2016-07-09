@@ -116,6 +116,7 @@ var xfrom = 1
             let upc = UILabel(frame: CGRect(x: 8, y: 0, width: 246, height: 21))
             let name = myUILabel(frame: CGRect(x: 8, y: 21, width: 246, height: 39))
             name.numberOfLines = 2
+            name.font = UIFont(name: ".SFUIText-Regular", size: 15.0)
             name.verticalAlignment = VerticalAlignmentTop
             let image = UIImageView(frame: CGRect(x: 8, y: 42, width: 238, height: 196))
             upc.text = strupc
@@ -129,8 +130,8 @@ var xfrom = 1
             }
             
             view.addSubview(upc)
-            view.addSubview(name)
             view.addSubview(image)
+            view.addSubview(name)
             
 //            print(view.frame)
             printView!.addSubview(view)
@@ -223,6 +224,7 @@ var xfrom = 1
             case 1:
                 let item = selectionList![indexPath.row]
                 cell1.upc.text = item.upc!
+//                print(cell1.name.font.fontName)
                 cell1.name.text = item.selectionarea!
                 //            cell1.pic.sd_setImageWithURL(NSURL(string: "https://contractssl.buildersaccess.com/baselection_image?idcia=\(item.idcia!)&idassembly1=\(item.idassembly1!)&upc=\(item.upc!)&isthumbnail=0"))
                 cell1.spinner.startAnimating()

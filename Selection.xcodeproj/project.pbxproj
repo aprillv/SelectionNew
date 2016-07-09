@@ -27,6 +27,7 @@
 		11B80BFD1D0914CC004C17C2 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B80BFB1D0914CC004C17C2 /* GDataXMLNode.m */; };
 		11B80BFE1D09159A004C17C2 /* Selection-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 11E318571D08FC2100EF498B /* Selection-Bridging-Header.h */; };
 		11D39D1B1D2BAC99006F14A5 /* PricebookTemplateItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D39D1A1D2BAC99006F14A5 /* PricebookTemplateItemsViewController.swift */; };
+		11E209861D30CAAA004D46E3 /* FloorplanMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E209851D30CAAA004D46E3 /* FloorplanMenuViewController.swift */; };
 		11E3185D1D08FC4E00EF498B /* CiaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E318581D08FC4E00EF498B /* CiaListViewController.swift */; };
 		11E3185E1D08FC4E00EF498B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E318591D08FC4E00EF498B /* AppDelegate.swift */; };
 		11E3185F1D08FC4E00EF498B /* CConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E3185A1D08FC4E00EF498B /* CConstants.swift */; };
@@ -91,6 +92,7 @@
 		11B80BFB1D0914CC004C17C2 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		11B80BFC1D0914CC004C17C2 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		11D39D1A1D2BAC99006F14A5 /* PricebookTemplateItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PricebookTemplateItemsViewController.swift; sourceTree = "<group>"; };
+		11E209851D30CAAA004D46E3 /* FloorplanMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanMenuViewController.swift; sourceTree = "<group>"; };
 		11E318421D08F6B100EF498B /* Selection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Selection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E318571D08FC2100EF498B /* Selection-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Selection-Bridging-Header.h"; sourceTree = "<group>"; };
 		11E318581D08FC4E00EF498B /* CiaListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CiaListViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +102,7 @@
 		11E3185C1D08FC4E00EF498B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		11E318631D08FC6D00EF498B /* AssembliesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssembliesViewController.swift; sourceTree = "<group>"; };
 		11E318641D08FC6D00EF498B /* BigPictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigPictureViewController.swift; sourceTree = "<group>"; };
-		11E318651D08FC6D00EF498B /* FloorPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorPlanViewController.swift; sourceTree = "<group>"; };
+		11E318651D08FC6D00EF498B /* FloorPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloorPlanViewController.swift; path = ../Views/FloorPlanViewController.swift; sourceTree = "<group>"; };
 		11E318661D08FC6D00EF498B /* LoginUserRequired.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserRequired.swift; sourceTree = "<group>"; };
 		11E318671D08FC6D00EF498B /* SelectionAreaListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionAreaListViewController.swift; sourceTree = "<group>"; };
 		11E318681D08FC6D00EF498B /* SelectionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionListViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,8 @@
 				1145E5251D2E33DF001ADEB6 /* SpecFeatureDevelopmentListViewController.swift */,
 				1145E52F1D2E508D001ADEB6 /* citylistViewController.swift */,
 				118E5F981D2F932F001FE188 /* FloorplanListViewController.swift */,
+				11E209851D30CAAA004D46E3 /* FloorplanMenuViewController.swift */,
+				11E318651D08FC6D00EF498B /* FloorPlanViewController.swift */,
 			);
 			path = ViewsNew;
 			sourceTree = "<group>";
@@ -209,7 +213,6 @@
 				11E318631D08FC6D00EF498B /* AssembliesViewController.swift */,
 				11E318641D08FC6D00EF498B /* BigPictureViewController.swift */,
 				11E3188A1D08FC7A00EF498B /* projectListViewController.swift */,
-				11E318651D08FC6D00EF498B /* FloorPlanViewController.swift */,
 				11E318661D08FC6D00EF498B /* LoginUserRequired.swift */,
 				11E318671D08FC6D00EF498B /* SelectionAreaListViewController.swift */,
 				11E318681D08FC6D00EF498B /* SelectionListViewController.swift */,
@@ -433,6 +436,7 @@
 				11E318931D08FC7A00EF498B /* SeletionCell.swift in Sources */,
 				11E318A21D08FC7A00EF498B /* SegueHandlerType.swift in Sources */,
 				11E3189A1D08FC7A00EF498B /* AssemblySelectionRequired.swift in Sources */,
+				11E209861D30CAAA004D46E3 /* FloorplanMenuViewController.swift in Sources */,
 				1193F8E21D2B5E49000DB954 /* SelectMenuViewController.swift in Sources */,
 				11E318A11D08FC7A00EF498B /* projectListViewController.swift in Sources */,
 				11E3186F1D08FC6D00EF498B /* SelectionListViewController.swift in Sources */,
