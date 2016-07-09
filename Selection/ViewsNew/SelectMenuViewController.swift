@@ -13,6 +13,8 @@ protocol SelectMenuDelegate {
 }
 class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var tableHeight : NSLayoutConstraint!
+    
     var delegate : SelectMenuDelegate?
     
     @IBOutlet var tableview: UITableView!{
@@ -32,6 +34,8 @@ class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(white: 1, alpha: 0.6)
+        self.tableHeight.constant = CGFloat((self.menuList.count  + 1) * 50)
+        view.updateConstraintsIfNeeded()
     }
     
     private struct Constants {
@@ -42,7 +46,28 @@ class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITable
         
     }
     
-    let menuList = [CConstants.menu102, CConstants.menu162, CConstants.menu164, CConstants.menu165]
+    
+    var menuListn : [String]? {
+        didSet{
+            if let _ = menuListn {
+                for m in menuListn! {
+                    switch m {
+                    case "1.0200":
+                        menuList.append(CConstants.menu102)
+                    case "1.6200":
+                        menuList.append(CConstants.menu162)
+                    case "1.6400":
+                        menuList.append(CConstants.menu164)
+                    case "1.6500":
+                        menuList.append(CConstants.menu165)
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+    }
+    var menuList = [String]()
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

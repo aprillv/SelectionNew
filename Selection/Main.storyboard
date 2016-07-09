@@ -365,11 +365,11 @@
                         <viewControllerLayoutGuide type="bottom" id="ffd-Eq-Ll2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iam-Ge-bOh">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6Z-46-dGH">
-                                <rect key="frame" x="112" y="52" width="800" height="664"/>
+                                <rect key="frame" x="-16" y="180" width="800" height="664"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-mj-XMe">
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
@@ -1272,6 +1272,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="tableHeight" destination="kqG-ZV-z5a" id="YkN-yd-hfW"/>
                         <outlet property="tableview" destination="b0f-wY-EJy" id="BYR-CZ-kzr"/>
                     </connections>
                 </viewController>
@@ -2849,6 +2850,7 @@
                         <outlet property="tableview" destination="YFc-g5-dwn" id="ytI-oX-8tg"/>
                         <outlet property="txtField" destination="bJW-fp-OTI" id="xRa-a1-cp7"/>
                         <outlet property="viewheight" destination="gtr-WU-1Un" id="Rg3-52-rJU"/>
+                        <segue destination="VdM-AG-L95" kind="presentation" identifier="Showbigpicture" id="Peb-jO-XaO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6PL-Zb-21d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3571,10 +3573,10 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="BM0-Xt-r4d"/>
-                                            <exclude reference="bbG-h1-xuh"/>
-                                            <exclude reference="Tay-su-zpN"/>
                                             <exclude reference="5Ul-c2-sLn"/>
+                                            <exclude reference="BM0-Xt-r4d"/>
+                                            <exclude reference="Tay-su-zpN"/>
+                                            <exclude reference="bbG-h1-xuh"/>
                                         </mask>
                                     </variation>
                                 </view>
@@ -3812,6 +3814,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="Ifm-d9-jHc"/>
         <segue reference="vRo-tG-qVq"/>
+        <segue reference="Peb-jO-XaO"/>
         <segue reference="1IE-Hp-06O"/>
     </inferredMetricsTieBreakers>
 </document>

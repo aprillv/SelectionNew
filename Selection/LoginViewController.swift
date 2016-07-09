@@ -248,7 +248,8 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
                         if response.result.isSuccess {
                             if let rtnValue = response.result.value as? [String: AnyObject]{
                                 let rtn = LoginedUserObj(dicInfo: rtnValue)
-                                print(rtnValue)
+//                                print(rtnValue)
+                                self.menus = rtn.menus
                                 self.toEablePageControl()
                                 
                                 if rtn.found == "1"{
@@ -318,6 +319,7 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
             }
         }
     }
+    var menus : String?
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier ?? "" {
                 case "CiaList":
@@ -332,6 +334,8 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
             break
         case "showMenu2":
             if let ciew = segue.destinationViewController as? SelectMenuViewController{
+                let list = menus?.componentsSeparatedByString(",")
+                ciew.menuListn = list
                 ciew.delegate = self
             }
             break

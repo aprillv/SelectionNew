@@ -79,7 +79,7 @@ class PricebookTemplateViewController: BaseViewController, UITableViewDelegate, 
                 if response.result.isSuccess {
                     //                        print(response.result.value)
                     if let rtnValue = response.result.value as? [String: AnyObject]{
-                        print(rtnValue["pricebooktemplatelist"])
+//                        print(rtnValue["pricebooktemplatelist"])
                         var tmp = [PricebookTemplateItem]()
                         if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
                             for o in list {

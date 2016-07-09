@@ -19,7 +19,7 @@ class PricebookTemplateItemsViewController: BaseViewController
         static let headCellIndentifier = "headCell"
         static let segueToViewCatalog = "showViewCatalog"
         
-        
+        static let segueToBigPicture = "Showbigpicture"
     }
     
     override func viewDidLoad() {
@@ -163,7 +163,7 @@ class PricebookTemplateItemsViewController: BaseViewController
                 if response.result.isSuccess {
                     //                        print(response.result.value)
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
-                        print(rtnValue)
+//                        print(rtnValue)
                         var tmp = [PricebookTemplateItemListI]()
 //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
                             for o in rtnValue {
@@ -212,7 +212,7 @@ class PricebookTemplateItemsViewController: BaseViewController
                 if response.result.isSuccess {
                     //                        print(response.result.value)
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
-                        print(rtnValue)
+//                        print(rtnValue)
                         var tmp = [PricebookTemplateItemListI]()
                         //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
                         for o in rtnValue {
@@ -251,6 +251,8 @@ class PricebookTemplateItemsViewController: BaseViewController
         if let cell1 = cell as? PricebookTemplateItemCell {
             let item = self.templateItemList![indexPath.row]
             cell1.setCellContentDetail(item)
+            cell1.superActionView = self
+            cell1.fsImage.tag = indexPath.row
 //            if (item.areacode ?? "").containsString("-") {
 //                cell1.contentView.backgroundColor = UIColor.whiteColor()
 //                cell1.backgroundColor = UIColor.whiteColor()
@@ -330,9 +332,44 @@ class PricebookTemplateItemsViewController: BaseViewController
                     }
                     
                 }
+            case constants.segueToBigPicture:
+                if let item = sender as? PricebookTemplateItemListI,
+                    let vc = segue.destinationViewController as? BigPictureViewController{
+                    var urlstr : String
+                    
+                    if let item1 = self.pricebookTemplateItem {
+                        urlstr = "https://contractssl.buildersaccess.com/baselection_pricebookTemplateItemPicture?idcia=1&idpricebooktemplate=\(item1.idnumber!)&upc=\(item.part!)&isthumbnail=0"
+                    }else if let item2 = self.developmentTemplateItem {
+                        urlstr = "https://contractssl.buildersaccess.com/baselection_specFeatureDevelopmentItemImage?idcia=1&iddevelopmenttemplate1=\(item2.idnumber!)&upc=\(item.part!)&isthumbnail=0"
+                    }else if let item3 = self.floorplanTemplateItem {
+                        urlstr = "https://contractssl.buildersaccess.com/baselection_floorplanItemImage?idcia=1&idfloorplan=\(item3.idnumber!)&upc=\(item.part!)&isthumbnail=0"
+                    }else  {
+                        urlstr = ""
+                    }
+                    
+                    let url = NSURL(string: urlstr)
+                    vc.imageUrl = url
+                    
+                    
+                    
+                    
+                }
+                
             default:
                 break
             }
         }
     }
+    
+    @IBAction func imageTapped(sender: UITapGestureRecognizer) {
+        
+        let tag = sender.view?.tag ?? 0
+        let item = templateItemList![tag]
+        if item.fs == 1 {
+            self.performSegueWithIdentifier(constants.segueToBigPicture, sender: item)
+        }
+        
+        
+    }
+    
 }

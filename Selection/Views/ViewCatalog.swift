@@ -132,7 +132,7 @@ var xfrom = 1
             view.addSubview(name)
             view.addSubview(image)
             
-            print(view.frame)
+//            print(view.frame)
             printView!.addSubview(view)
             if (i + 1) % 12 == 0 || i == count-1{
                printView!.layer.renderInContext(pdfContext!)
@@ -236,7 +236,7 @@ var xfrom = 1
                 cell1.upc.text = item.part!
                 cell1.name.text = item.xdescription!
                 //            cell1.name.sizeToFit()
-                print(cell1.name.numberOfLines)
+//                print(cell1.name.numberOfLines)
                 cell1.spinner.startAnimating()
                 let urlstr =  getImageUrl(item.part!)
                 cell1.pic.sd_setImageWithURL(NSURL(string: urlstr), completed: { (_, _, _, _) -> Void in

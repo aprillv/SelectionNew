@@ -19,4 +19,5 @@ class LoginedUserObj: BaseModelObject {
     var mobile : String?
     var cialist : [CialistItemObj]?
     var iddeptos: NSNumber?
+    var menus : String?
 }

@@ -17,6 +17,22 @@ class PricebookTemplateItemCell: CiaCell {
     }
      @IBOutlet var backView: UIView!
     @IBOutlet var fsImage: UIImageView!
+    
+    var superActionView : AnyObject?{
+        didSet{
+            toADDClockInTap()
+        }
+    }
+    
+    private func toADDClockInTap(){
+        if let _ = superActionView, let _ = fsImage {
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target:superActionView!, action:#selector(PricebookTemplateItemsViewController.imageTapped(_:)))
+            fsImage.userInteractionEnabled = true
+            tapGestureRecognizer.numberOfTapsRequired = 1
+            fsImage.addGestureRecognizer(tapGestureRecognizer)
+        }
+    }
     @IBOutlet var areacodeLbl: UILabel!
     @IBOutlet var areaNameLbl: UILabel!
     @IBOutlet var partNoLbl: UILabel!
