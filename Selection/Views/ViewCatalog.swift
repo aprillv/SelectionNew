@@ -11,13 +11,17 @@ import SDWebImage
 
 class ViewCatalog: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIPrintInteractionControllerDelegate {
 var xfrom = 1
-    
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+
     @IBAction func DoPrint(sender: AnyObject) {
          let count = (xfrom == 1 ? self.selectionList!.count : self.pricebookTemplateItemList!.count)
         if count == 0 {
             return;
         }
-//        UIView* testView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f)];
+        
+        //        UIView* testView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 1024.0f, 768.0f)];
 //        NSMutableData* pdfData = [NSMutableData data];
 //        UIGraphicsBeginPDFContextToData(pdfData, CGRectMake(0.0f, 0.0f, 792.0f, 612.0f), nil);
 //        UIGraphicsBeginPDFPage();

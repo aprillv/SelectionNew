@@ -17,6 +17,9 @@ class SelectionListViewController: BaseViewController, UITableViewDataSource, UI
 //            seperatorHeight.constant = 1.0 / UIScreen.mainScreen().scale
 //        }
 //    }
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     @IBOutlet var viewHeight: NSLayoutConstraint!{
         didSet{
         viewHeight.constant = 1.0 / UIScreen.mainScreen().scale

@@ -11,7 +11,7 @@ import UIKit
 protocol SelectMenuDelegate {
     func goToNextPage(menuname: String)
 }
-class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet var tableHeight : NSLayoutConstraint!
     
@@ -120,5 +120,14 @@ class SelectMenuViewController: BaseViewController, UITableViewDelegate, UITable
             }
         }
         
+    }
+    
+    @IBAction func doClose(){
+        self.dismissViewControllerAnimated(true){
+        }
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return !CGRectContainsPoint(tableview.frame, touch.locationInView(view))
     }
 }

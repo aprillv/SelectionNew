@@ -77,6 +77,10 @@ class PricebookTemplateItemsViewController: BaseViewController
         }
     }
     
+    @IBAction func goLogout(){
+    self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
     private func getDataFromSever(){
         if let _ = self.pricebookTemplateItem {
             getPriceBookTemplateItemListFromServer()
@@ -114,7 +118,7 @@ class PricebookTemplateItemsViewController: BaseViewController
                 if response.result.isSuccess {
                     //                        print(response.result.value)
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
-                        print(rtnValue)
+//                        print(rtnValue)
                         var tmp = [PricebookTemplateItemListI]()
                         //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
                         for o in rtnValue {
@@ -194,7 +198,7 @@ class PricebookTemplateItemsViewController: BaseViewController
             
             let a = ["email": email, "password" : pwd, "username": username,"idcia":"1","idpricebooktemplate":item.idnumber ?? "","templatename":item.tname ?? ""]
             
-            print(a)
+//            print(a)
             
             var hud : MBProgressHUD?
             if !(self.refreshControl!.refreshing){

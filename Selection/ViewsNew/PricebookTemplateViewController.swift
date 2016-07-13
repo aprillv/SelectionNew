@@ -24,7 +24,9 @@ class PricebookTemplateViewController: BaseViewController, UITableViewDelegate, 
         self.getPriceBookTemplateFromServer()
     }
     
-    
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     @IBAction func goback(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)
     }

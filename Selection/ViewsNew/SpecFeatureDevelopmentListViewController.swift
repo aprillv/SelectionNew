@@ -25,7 +25,9 @@ class SpecFeatureDevelopmentListViewController: BaseViewController, UITableViewD
         super.viewDidLoad()
         self.getSpecFeatureDevelopmentListFromServer()
     }
-    
+    @IBAction func goLogout(sender: AnyObject) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     
     @IBAction func goback(sender: AnyObject) {
         self.navigationController?.popViewControllerAnimated(true)

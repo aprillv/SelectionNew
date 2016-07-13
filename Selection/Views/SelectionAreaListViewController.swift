@@ -13,6 +13,10 @@ import MBProgressHUD
 
 class SelectionAreaListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
     
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
     @IBOutlet var viewHeight: NSLayoutConstraint!{
         didSet{
             viewHeight.constant = 1.0 / UIScreen.mainScreen().scale

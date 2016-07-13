@@ -331,7 +331,7 @@ class LoginViewController: BaseViewController, UITextFieldDelegate, SegueHandler
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier == "showMenu2" {
-            print(menus?.componentsSeparatedByString(",").count)
+//            print(menus?.componentsSeparatedByString(",").count)
             if menus?.componentsSeparatedByString(",").count == 4 {
                 self.PopMsgWithJustOK(msg: "You cannot access BA Selection now, please contact administrator to add menu access to you.")
                 return false

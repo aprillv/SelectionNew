@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Welcome to BA Selection-->
@@ -336,6 +337,11 @@
                                 <action selector="doLogout:" destination="Gh6-AL-rXq" id="ceT-jY-3CJ"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="jpe-68-Oha">
+                            <connections>
+                                <action selector="doLogout:" destination="Gh6-AL-rXq" id="aQL-cS-97i"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="ire-aM-Whv">
@@ -354,7 +360,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qan-1m-ntH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2375" y="-422"/>
+            <point key="canvasLocation" x="2687" y="-595"/>
         </scene>
         <!--Big Picture View Controller-->
         <scene sceneID="zhy-93-FMh">
@@ -425,18 +431,29 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="u6Z-46-dGH" firstAttribute="centerY" secondItem="iam-Ge-bOh" secondAttribute="centerY" id="k6x-nq-0Zm"/>
                             <constraint firstItem="u6Z-46-dGH" firstAttribute="centerX" secondItem="iam-Ge-bOh" secondAttribute="centerX" id="zoN-TK-dN3"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="VCc-8Z-VsR" appends="YES" id="Ty2-y8-67t"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="closeBtn" destination="j79-5z-Z8q" id="cgt-LN-xcQ"/>
                         <outlet property="image" destination="WQd-mj-XMe" id="Af8-bU-QeL"/>
+                        <outlet property="imgBackView" destination="u6Z-46-dGH" id="CPk-2j-1cd"/>
                         <outlet property="saveBtn" destination="cfB-py-R20" id="Tbi-7x-F3R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chv-zw-6yH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VCc-8Z-VsR">
+                    <connections>
+                        <action selector="doClose:" destination="VdM-AG-L95" id="xw0-IJ-fHi"/>
+                        <outlet property="delegate" destination="VdM-AG-L95" id="Pi6-AR-8sZ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3661" y="-1182"/>
         </scene>
@@ -743,6 +760,11 @@
                                 <action selector="goBack:" destination="Nz7-gQ-kaB" id="q1P-3m-QAB"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="VxD-uE-cP7">
+                            <connections>
+                                <action selector="goLogout" destination="Nz7-gQ-kaB" id="OU0-SX-C0d"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -754,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PyO-qg-ppS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2815" y="-930"/>
+            <point key="canvasLocation" x="2581" y="-918"/>
         </scene>
         <!--selection-->
         <scene sceneID="rhg-HN-hA1">
@@ -1190,6 +1212,11 @@
                                 <action selector="goBack:" destination="NSe-8j-4f7" id="rEv-Mp-vjr"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="SiP-xa-dTA">
+                            <connections>
+                                <action selector="goLogout" destination="NSe-8j-4f7" id="3Q8-K0-y7Z"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -1265,10 +1292,14 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="b0f-wY-EJy" firstAttribute="centerX" secondItem="s8j-F3-HmZ" secondAttribute="centerX" id="Ci5-ES-naB"/>
                             <constraint firstItem="b0f-wY-EJy" firstAttribute="centerY" secondItem="s8j-F3-HmZ" secondAttribute="centerY" multiplier="0.8" id="wHR-bm-7v5"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ZZj-6d-rZK" appends="YES" id="32o-sX-AJu"/>
+                        </connections>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
@@ -1277,6 +1308,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tiN-Z7-bWX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ZZj-6d-rZK">
+                    <connections>
+                        <action selector="doClose" destination="FG5-PK-7pa" id="uFz-3r-H2S"/>
+                        <outlet property="delegate" destination="FG5-PK-7pa" id="Dxf-PZ-4a3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="700" y="-2851"/>
         </scene>
@@ -1544,6 +1581,11 @@
                         <barButtonItem key="leftBarButtonItem" image="back" id="Svs-ux-A7Q">
                             <connections>
                                 <action selector="goback:" destination="Nug-eQ-c3Y" id="T28-qH-5gS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="udl-nl-LEd">
+                            <connections>
+                                <action selector="goLogout" destination="Nug-eQ-c3Y" id="dAQ-Mp-Mzp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1848,11 +1890,18 @@
                                 <action selector="goBack:" destination="2dS-I0-EPa" id="OPd-Ea-BEN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="View Catalog" id="Wl0-Y6-7eu">
-                            <connections>
-                                <segue destination="tvg-5A-SZy" kind="show" identifier="show view catalog" id="bec-NL-nBM"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Logout" id="vB0-uz-bqn">
+                                <connections>
+                                    <action selector="goLogout" destination="2dS-I0-EPa" id="8CW-Sw-UM2"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="View Catalog" id="Wl0-Y6-7eu">
+                                <connections>
+                                    <segue destination="tvg-5A-SZy" kind="show" identifier="show view catalog" id="bec-NL-nBM"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
@@ -1985,11 +2034,18 @@
                                 <action selector="goBack:" destination="tvg-5A-SZy" id="LTh-UU-fuH"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="printer" id="A1z-uy-ZJe">
-                            <connections>
-                                <action selector="DoPrint:" destination="tvg-5A-SZy" id="TjI-2i-Fek"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Logout" id="ZQL-Zq-s5j">
+                                <connections>
+                                    <action selector="goLogout" destination="tvg-5A-SZy" id="hEs-lx-MQC"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="printer" id="A1z-uy-ZJe">
+                                <connections>
+                                    <action selector="DoPrint:" destination="tvg-5A-SZy" id="TjI-2i-Fek"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
@@ -1999,7 +2055,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqM-To-5NL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2364" y="-266"/>
+            <point key="canvasLocation" x="2049" y="-207"/>
         </scene>
         <!--Floorplan Menu View Controller-->
         <scene sceneID="LI2-uE-91O">
@@ -2086,6 +2142,151 @@
             </objects>
             <point key="canvasLocation" x="2573" y="488"/>
         </scene>
+        <!--Floorplan Area List-->
+        <scene sceneID="kwD-j3-lZ7">
+            <objects>
+                <viewController id="jYJ-X3-oAO" customClass="FloorplanAreaList" customModule="Selection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zbC-d4-dyT"/>
+                        <viewControllerLayoutGuide type="bottom" id="1kY-Km-UOy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gmg-wf-P1L">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-XW-E1f">
+                                <rect key="frame" x="144" y="448" width="480" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="4TT-QH-qcu"/>
+                                    <constraint firstAttribute="width" constant="480" id="tmI-dU-jRu"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headCell" id="zLj-MZ-oOL" customClass="FloorplanAreaItemCell" customModule="Selection" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="480" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zLj-MZ-oOL" id="yxG-HC-KYa">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DNo-8v-p7j">
+                                                    <rect key="frame" x="16" y="10" width="312" height="24"/>
+                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwB-23-tK9">
+                                                    <rect key="frame" x="304" y="22" width="80" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGZ-OQ-JTx">
+                                                    <rect key="frame" x="355" y="3" width="37" height="37"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="37" id="Ejg-Ba-qcT"/>
+                                                        <constraint firstAttribute="height" constant="37" id="NXm-5V-ynv"/>
+                                                    </constraints>
+                                                    <state key="normal" image="close"/>
+                                                    <connections>
+                                                        <action selector="doClose:" destination="ETy-Ad-CSg" eventType="touchUpInside" id="QSr-LV-AgI"/>
+                                                        <action selector="doclose" destination="jYJ-X3-oAO" eventType="touchUpInside" id="etw-fF-FSX"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kGZ-OQ-JTx" secondAttribute="trailing" id="6JV-Zg-Xjs"/>
+                                                <constraint firstItem="kGZ-OQ-JTx" firstAttribute="centerY" secondItem="yxG-HC-KYa" secondAttribute="centerY" id="KvM-6r-wkx"/>
+                                                <constraint firstItem="YwB-23-tK9" firstAttribute="centerY" secondItem="yxG-HC-KYa" secondAttribute="centerY" id="NU4-4k-8m5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="YwB-23-tK9" secondAttribute="trailing" constant="8" id="WzF-iW-hLT"/>
+                                                <constraint firstItem="DNo-8v-p7j" firstAttribute="leading" secondItem="yxG-HC-KYa" secondAttribute="leadingMargin" constant="8" id="aCC-Mp-xCm"/>
+                                                <constraint firstItem="DNo-8v-p7j" firstAttribute="width" secondItem="yxG-HC-KYa" secondAttribute="width" multiplier="0.78" id="nrl-es-xkI"/>
+                                                <constraint firstItem="DNo-8v-p7j" firstAttribute="centerY" secondItem="yxG-HC-KYa" secondAttribute="centerY" id="sFI-Rp-0M9"/>
+                                                <constraint firstItem="YwB-23-tK9" firstAttribute="width" secondItem="yxG-HC-KYa" secondAttribute="width" multiplier="0.2" id="ztZ-aC-TSv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="xname" destination="DNo-8v-p7j" id="BZt-oj-bhH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contentCell" id="hXn-jz-Ojt" customClass="FloorplanAreaItemCell" customModule="Selection" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="480" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXn-jz-Ojt" id="fqQ-4J-BWq">
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFC-B0-wd8">
+                                                    <rect key="frame" x="16" y="12" width="312" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9se-lh-aqc">
+                                                    <rect key="frame" x="297" y="0.0" width="1" height="44"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="1" id="frj-e3-pt1"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uc7-rv-KMJ">
+                                                    <rect key="frame" x="304" y="12" width="80" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PFC-B0-wd8" firstAttribute="centerY" secondItem="fqQ-4J-BWq" secondAttribute="centerY" id="4n9-8f-1cs"/>
+                                                <constraint firstItem="9se-lh-aqc" firstAttribute="top" secondItem="fqQ-4J-BWq" secondAttribute="topMargin" constant="-8" id="83p-F6-xPW"/>
+                                                <constraint firstItem="uc7-rv-KMJ" firstAttribute="leading" secondItem="9se-lh-aqc" secondAttribute="trailing" constant="6" id="AQR-4b-tfc"/>
+                                                <constraint firstItem="uc7-rv-KMJ" firstAttribute="centerY" secondItem="fqQ-4J-BWq" secondAttribute="centerY" id="DaS-YT-jUs"/>
+                                                <constraint firstItem="PFC-B0-wd8" firstAttribute="width" secondItem="fqQ-4J-BWq" secondAttribute="width" multiplier="0.78" id="YSl-Hs-a6I"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="uc7-rv-KMJ" secondAttribute="trailing" constant="8" id="fbJ-Yg-wgk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9se-lh-aqc" secondAttribute="bottom" constant="-9" id="in6-CL-mHS"/>
+                                                <constraint firstItem="PFC-B0-wd8" firstAttribute="leading" secondItem="fqQ-4J-BWq" secondAttribute="leadingMargin" constant="8" id="mIC-dk-dSb"/>
+                                                <constraint firstItem="uc7-rv-KMJ" firstAttribute="width" secondItem="fqQ-4J-BWq" secondAttribute="width" multiplier="0.2" id="xmw-S6-TA5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="seperatorLineWidth" destination="frj-e3-pt1" id="FRo-rB-xBV"/>
+                                            <outlet property="xdescription" destination="uc7-rv-KMJ" id="Wim-xl-0xf"/>
+                                            <outlet property="xname" destination="PFC-B0-wd8" id="FE2-4b-MTz"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jYJ-X3-oAO" id="WgO-by-FWe"/>
+                                    <outlet property="delegate" destination="jYJ-X3-oAO" id="cr4-4a-dc1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="XbA-XW-E1f" firstAttribute="centerX" secondItem="gmg-wf-P1L" secondAttribute="centerX" id="RVn-Bl-CSP"/>
+                            <constraint firstItem="XbA-XW-E1f" firstAttribute="centerY" secondItem="gmg-wf-P1L" secondAttribute="centerY" id="aNG-IL-QWN"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="69c-og-lvP" appends="YES" id="C1w-MQ-oP9"/>
+                        </connections>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="tableHeight" destination="4TT-QH-qcu" id="j2X-Ao-KYM"/>
+                        <outlet property="tableView" destination="XbA-XW-E1f" id="hPX-V3-POC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KNh-lM-fxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="69c-og-lvP">
+                    <connections>
+                        <action selector="doclose" destination="jYJ-X3-oAO" id="jTp-tZ-qqQ"/>
+                        <outlet property="delegate" destination="jYJ-X3-oAO" id="X4o-cM-doy"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2636" y="1330"/>
+        </scene>
         <!--Company Name-->
         <scene sceneID="Jx6-R5-eph">
             <objects>
@@ -2110,10 +2311,16 @@
                             <constraint firstItem="4iz-DQ-v55" firstAttribute="top" secondItem="Gea-UO-Bjb" secondAttribute="bottom" id="TvN-SX-KPM"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Company Name" id="u2F-Lc-Ibb">
                         <barButtonItem key="leftBarButtonItem" image="back" id="0NA-y7-TUV">
                             <connections>
                                 <action selector="goBack:" destination="q4a-7R-LqI" id="5GV-UH-yd7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="jGG-if-Qmj">
+                            <connections>
+                                <action selector="goLogout" destination="q4a-7R-LqI" id="JYM-6b-9J2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2428,6 +2635,11 @@
                         <barButtonItem key="leftBarButtonItem" image="back" id="p38-tR-cJV">
                             <connections>
                                 <action selector="goBack:" destination="FTP-gt-hb3" id="TZS-gJ-NdX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="rxR-Og-CFY">
+                            <connections>
+                                <action selector="goLogout" destination="FTP-gt-hb3" id="xh7-1a-IGG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2924,11 +3136,18 @@
                                 <action selector="goback:" destination="esM-r3-DxU" id="7jV-Fa-HZl"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="View Catalog" id="fhM-BH-Ard">
-                            <connections>
-                                <segue destination="tvg-5A-SZy" kind="show" identifier="showViewCatalog" id="1IE-Hp-06O"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Logout" id="ggb-03-y3R">
+                                <connections>
+                                    <action selector="goLogout" destination="esM-r3-DxU" id="HKT-be-A9A"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="View Catalog" id="fhM-BH-Ard">
+                                <connections>
+                                    <segue destination="tvg-5A-SZy" kind="show" identifier="showViewCatalog" id="1IE-Hp-06O"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
@@ -3056,6 +3275,11 @@
                         <barButtonItem key="leftBarButtonItem" image="back" id="VTG-Un-Yut">
                             <connections>
                                 <action selector="goback:" destination="YJY-3A-wgB" id="Anm-9M-vnX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="QHZ-8U-kZ7">
+                            <connections>
+                                <action selector="goLogout" destination="YJY-3A-wgB" id="wz6-ds-AEe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -3338,6 +3562,11 @@
                                 <action selector="goback:" destination="lKQ-RH-kcq" id="udF-ku-Hzf"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="Vtr-aj-0Xu">
+                            <connections>
+                                <action selector="goLogout:" destination="lKQ-RH-kcq" id="5pv-cZ-fd8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
@@ -3584,6 +3813,11 @@
                         <barButtonItem key="leftBarButtonItem" image="back" id="rbd-LD-34x">
                             <connections>
                                 <action selector="goback:" destination="Y2h-Jg-3IH" id="16f-Em-IMV"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="9Vh-f1-cWQ">
+                            <connections>
+                                <action selector="goLogout" destination="Y2h-Jg-3IH" id="ehd-9W-7Dy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -3877,6 +4111,11 @@
                                 <action selector="goback:" destination="cax-ff-ziN" id="SZX-di-PU6"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="LCg-5c-mHf">
+                            <connections>
+                                <action selector="goLogout" destination="cax-ff-ziN" id="rlA-Ga-Lbb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
@@ -3953,11 +4192,17 @@
                                 <action selector="goBack:" destination="PZD-Wf-mLr" id="lOt-fV-MWk"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="BHt-FM-atN">
+                            <connections>
+                                <action selector="goLogout" destination="PZD-Wf-mLr" id="cmy-IA-0S6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="loadingLbl" destination="qct-i5-0Ba" id="Jhs-id-2Pk"/>
                         <outlet property="spinner" destination="2rk-rf-Lqi" id="4Vy-tP-ee3"/>
+                        <segue destination="jYJ-X3-oAO" kind="presentation" identifier="showAreaList" modalPresentationStyle="overCurrentContext" id="veb-j1-SGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwi-xu-bst" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3972,9 +4217,9 @@
         <image name="printer" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1IE-Hp-06O"/>
-        <segue reference="vRo-tG-qVq"/>
-        <segue reference="L9o-Yd-KbI"/>
+        <segue reference="eQN-gN-9gf"/>
         <segue reference="Peb-jO-XaO"/>
+        <segue reference="1IE-Hp-06O"/>
+        <segue reference="uGo-kt-Oxp"/>
     </inferredMetricsTieBreakers>
 </document>

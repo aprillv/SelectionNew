@@ -10,8 +10,10 @@ import UIKit
 import SDWebImage
 import MBProgressHUD
 
-class BigPictureViewController: UIViewController {
+class BigPictureViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet var imgBackView : UIView!
+    
     var imageUrl: NSURL? {
         didSet{
             self.loadImage()
@@ -27,7 +29,7 @@ class BigPictureViewController: UIViewController {
     private func loadImage(){
         if let url = imageUrl {
             if image != nil {
-//                print(url)
+                print(url)
                 let hud = MBProgressHUD.showHUDAddedTo(image, animated: true)
                 //                hud.mode = .AnnularDeterminate
                 hud.labelText = "Loading Picutre"
@@ -113,6 +115,10 @@ class BigPictureViewController: UIViewController {
     }
     @IBAction func doClose(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        return !CGRectContainsPoint(imgBackView.frame, touch.locationInView(view))
     }
     
 }

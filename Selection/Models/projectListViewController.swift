@@ -170,7 +170,9 @@ class projectListViewController: BaseViewController, UITableViewDelegate, UITabl
         self.performSegueWithIdentifier(CConstants.SegueToFloorplanFromProjectList, sender: self.ProjectList![indexPath.row])
         
     }
-    
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {

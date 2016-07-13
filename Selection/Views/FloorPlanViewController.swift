@@ -23,6 +23,10 @@ class FloorPlanViewController:  BaseViewController{
         }
     }
     
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
     func addPolygon() {
         if let img = view.viewWithTag(1) as? UIImageView, item = floorplanInfo {
             img.contentMode = .ScaleAspectFit
@@ -56,7 +60,23 @@ class FloorPlanViewController:  BaseViewController{
     
     func ClickCategroy(tap : UITapGestureRecognizer) {
         if let t = tap.view as? TouchView {
-            print(t.CategoryDetail?.ncategory)
+//            print(t.CategoryDetail?.ncategory)
+//            showAreaList
+            self.performSegueWithIdentifier("showAreaList", sender: t.CategoryDetail)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            if identifier == "showAreaList" {
+                if let item = sender as? CategoryItem
+                    , let con = segue.destinationViewController as? FloorplanAreaList{
+                    con.idfloorplan = item.idfloorplan
+                    con.idcia = item.idcia
+                    con.code = item.code
+                    con.xnames = item.ncategory
+                }
+            }
         }
     }
     
@@ -100,7 +120,7 @@ class FloorPlanViewController:  BaseViewController{
             CConstants.ServerURL + "baselection_categoryRequest.json",
             parameters: request).responseJSON{ (response) -> Void in
                 if response.result.isSuccess {
-                    print(response.result.value)
+//                    print(response.result.value)
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
                         var na = [CategoryItem]()
                         for rtn in rtnValue {

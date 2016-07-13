@@ -90,7 +90,7 @@ class FloorplanListViewController: BaseViewController , UITableViewDelegate, UIT
                 if response.result.isSuccess {
                     //                        print(response.result.value)
                     if let rtnValue = response.result.value as? [[String: AnyObject]]{
-                        print(rtnValue)
+//                        print(rtnValue)
                         var tmp = [FloorplanItem]()
                         //                        if let list = rtnValue["pricebooktemplatelist"] as? [[String : String]] {
                         for o in rtnValue {
@@ -150,6 +150,11 @@ class FloorplanListViewController: BaseViewController , UITableViewDelegate, UIT
             view.updateConstraintsIfNeeded()
         }
     }
+    
+   @IBAction func goLogout (){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
     @IBOutlet var txtField: UITextField!{
         didSet{
             

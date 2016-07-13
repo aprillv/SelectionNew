@@ -17,6 +17,10 @@ class SpecFeatureCiaListViewController: BaseViewController, UITextFieldDelegate,
             view.updateConstraintsIfNeeded()
         }
     }
+    
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     @IBOutlet var txtField: UITextField!{
         didSet{
             txtField.layer.cornerRadius = 5.0

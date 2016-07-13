@@ -138,7 +138,9 @@ class citylistViewController: BaseViewController , UITableViewDelegate, UITableV
 //        }
 //    }
     
-    
+    @IBAction func goLogout(){
+        self.navigationController?.popToRootViewControllerAnimated(true)
+    }
     @IBOutlet var viewheight: NSLayoutConstraint!{
         didSet{
             viewheight.constant = 1.0 / UIScreen.mainScreen().scale
